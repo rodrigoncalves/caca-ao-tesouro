@@ -12,11 +12,6 @@
             android:name=".HintListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".HintDetailActivity"
@@ -26,6 +21,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="personal.marriageproposal.HintListActivity" />
+        </activity>
+        <activity android:name=".MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
