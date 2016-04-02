@@ -47,6 +47,8 @@
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_done_black_24dp"
+        app:backgroundTint="@android:color/holo_blue_dark"
+        android:tint="@android:color/white"
         app:layout_anchor="@+id/hint_detail_container"
         app:layout_anchorGravity="top|end" />
 

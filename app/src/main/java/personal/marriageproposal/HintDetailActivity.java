@@ -1,15 +1,20 @@
 package personal.marriageproposal;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 /**
  * An activity representing a single Hint detail screen. This
@@ -19,6 +24,9 @@ import android.view.MenuItem;
  */
 public class HintDetailActivity extends AppCompatActivity {
 
+    private static final int TEXT_ID = 0;
+    private static final String TAG = "HintDetailActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +35,13 @@ public class HintDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showDialog(0);
+//              Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -79,5 +89,44 @@ public class HintDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        if (id != 0) return null;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Senha");
+        builder.setMessage("Digite a palavra secreta:");
+
+        // Use an EditText view to get user input.
+        final EditText input = new EditText(this);
+        input.setId(TEXT_ID);
+        builder.setView(input);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                Log.d(TAG, "Senha: " + value);
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        return builder.create();
+    }
+
+    @Override
+    protected void onPrepareDialog(int id, Dialog dialog) {
+        if (id == 0) {
+            EditText text = (EditText) dialog.findViewById(TEXT_ID);
+            text.setText("");
+        }
     }
 }
