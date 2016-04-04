@@ -2,12 +2,13 @@ package personal.marriageproposal.db;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static String DB_PATH;
     private static String DB_NAME = "treasurehunt.sqlite3";
     private SQLiteDatabase myDataBase;
-    private final Context context;
+    private Context context;
 
     /**
      * Constructor
@@ -35,39 +36,36 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         String packageName = context.getPackageName();
         DB_PATH = String.format("//data//data//%s//databases//", packageName);
+        createDataBase();
     }
 
-    /**
-     * Check if the database already exist to avoid re-copying the file each time you open the application.
-     * @return true if it exists, false if it doesn't
-     */
-    private boolean checkDataBase(){
-        SQLiteDatabase checkDB = null;
-
-        try {
-            String myPath = DB_PATH + DB_NAME;
-            checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-
-        } catch(SQLiteException e) {
-            //database does't exist yet.
-            Log.e(this.getClass().toString(), "Error while checking db");
-        }
-
-        if (checkDB != null) {
-            checkDB.close();
-        }
-
-        return checkDB != null;
+    public void createDataBase() {
+            this.getReadableDatabase();
+            try {
+                copyDataBase();
+            } catch (IOException e) {
+                Log.e(this.getClass().toString(), "Copying error");
+                throw new Error("Error copying database!");
+            }
     }
 
-    public SQLiteDatabase openDataBase() throws SQLException {
-        //Open the database
-        String path = DB_PATH + DB_NAME;
-        if (myDataBase == null) {
-            myDataBase = SQLiteDatabase.openDatabase(path, null, SQLiteDatabase.OPEN_READONLY);
+    private int copyDataBase() throws IOException {
+        int result = 0;
+        InputStreamReader inputStreamReader = new InputStreamReader(this.context.getAssets().open("data.sql"));
+        BufferedReader insertReader = new BufferedReader(inputStreamReader);
+
+        // Iterate through lines (assuming each insert has its own line and there is no other stuff)
+        while (insertReader.ready()) {
+            String insertStmt = insertReader.readLine();
+            SQLiteDatabase db = this.getReadableDatabase();
+            db.execSQL(insertStmt);
+            result++;
         }
 
-        return myDataBase;
+        insertReader.close();
+
+        // returning number of inserted rows
+        return result;
     }
 
     @Override
@@ -114,6 +112,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return hints;
     }
 
