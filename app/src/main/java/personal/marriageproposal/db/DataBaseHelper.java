@@ -3,6 +3,7 @@ package personal.marriageproposal.db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -40,14 +41,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public void createDataBase() {
+        boolean dbExists = checkDataBase();
+        if (!dbExists) {
             this.getReadableDatabase();
             try {
+                Log.d("DB", "Inserting data...");
                 copyDataBase();
             } catch (IOException e) {
                 Log.e(this.getClass().toString(), "Copying error");
                 throw new Error("Error copying database!");
             }
+        }
     }
+
+    /**
+    * Check if the database already exist to avoid re-copying the file each time you open the a
+    * @return true if it exists, false if it doesn't
+    */
+    private boolean checkDataBase(){
+       SQLiteDatabase checkDB = null;
+       try {
+           String myPath = DB_PATH + DB_NAME;
+           checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+       } catch(SQLiteException e) {
+           //database does't exist yet.
+           Log.e(this.getClass().toString(), "Error while checking db");
+       }
+       if (checkDB != null) {
+           checkDB.close();
+       }
+       return checkDB != null;
+    }
+
+
 
     private int copyDataBase() throws IOException {
         int result = 0;
