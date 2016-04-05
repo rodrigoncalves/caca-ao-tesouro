@@ -3,7 +3,6 @@ package personal.marriageproposal.db;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
@@ -58,19 +57,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     * Check if the database already exist to avoid re-copying the file each time you open the a
     * @return true if it exists, false if it doesn't
     */
-    private boolean checkDataBase(){
-       SQLiteDatabase checkDB = null;
-       try {
-           String myPath = DB_PATH + DB_NAME;
-           checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-       } catch(SQLiteException e) {
-           //database does't exist yet.
-           Log.e(this.getClass().toString(), "Error while checking db");
-       }
-       if (checkDB != null) {
-           checkDB.close();
-       }
-       return checkDB != null;
+    private boolean checkDataBase() {
+        String query = "select name from sqlite_master where name='hints'";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        boolean ret = cursor.moveToFirst();
+        cursor.close();
+        return ret;
     }
 
 
@@ -81,11 +74,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         BufferedReader insertReader = new BufferedReader(inputStreamReader);
 
         // Iterate through lines (assuming each insert has its own line and there is no other stuff)
+
+        String insertStmt = "";
         while (insertReader.ready()) {
-            String insertStmt = insertReader.readLine();
+            String line = insertReader.readLine();
+            if (!line.contains(";")) {
+                insertStmt = insertStmt.concat(line);
+                continue;
+            }
+
+            insertStmt = insertStmt.concat(line);
             SQLiteDatabase db = this.getReadableDatabase();
             db.execSQL(insertStmt);
             result++;
+            insertStmt = "";
         }
 
         insertReader.close();
