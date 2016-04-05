@@ -3,6 +3,7 @@ package personal.marriageproposal.dummy;
 import android.content.Context;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,15 +16,21 @@ import personal.marriageproposal.db.DataBaseHelper;
  * TODO: Replace all uses of this class before publishing your app.
  */
 public class DummyContent {
-    private List<Hint> hints;
+    private List<Hint> hints_list;
     private HashMap<String, Hint> hints_map;
 
     public DummyContent(Context context) {
         DataBaseHelper db = new DataBaseHelper(context);
-        this.hints = db.getAllHints();
+        List<Hint> hints = db.getAllHints();
+
+        this.hints_list = new LinkedList<>();
         this.hints_map = new HashMap<>();
-        for (Hint item : this.hints) {
-            this.hints_map.put(item.id, item);
+        for (Hint item : hints) {
+            if (item.status == 1) {
+                this.hints_list.add(item);
+                this.hints_map.put(item.id, item);
+
+            }
         }
     }
 
@@ -31,7 +38,7 @@ public class DummyContent {
      * An array of sample (dummy) items.
      */
     public List<Hint> getItems() {
-        return hints;
+        return hints_list;
     }
 
     /**
