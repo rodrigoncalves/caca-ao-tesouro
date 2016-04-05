@@ -131,8 +131,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String title = cursor.getString(1);
                 String details = cursor.getString(2);
                 String password = cursor.getString(3);
-                int status = cursor.getInt(4);
-                Hint hint = new Hint(id, title, details, password, status);
+                Hint hint = new Hint(id, title, details, password);
                 // Add hint to books
                 hints.add(hint);
             } while (cursor.moveToNext());
@@ -142,4 +141,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return hints;
     }
 
+    public Hint getHintById(String id) {
+        String query = "SELECT * FROM hints WHERE _id = '" + id + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        Hint hint = null;
+        if (cursor.moveToFirst()) {
+            String title = cursor.getString(1);
+            String details = cursor.getString(2);
+            String password = cursor.getString(3);
+            hint = new Hint(id, title, details, password);
+        }
+
+        cursor.close();
+
+        return hint;
+    }
 }

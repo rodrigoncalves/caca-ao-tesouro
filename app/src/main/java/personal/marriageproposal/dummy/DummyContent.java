@@ -18,20 +18,29 @@ import personal.marriageproposal.db.DataBaseHelper;
 public class DummyContent {
     private List<Hint> hints_list;
     private HashMap<String, Hint> hints_map;
+    private static int count = 1;
+    private static DataBaseHelper db;
 
     public DummyContent(Context context) {
-        DataBaseHelper db = new DataBaseHelper(context);
+        db = new DataBaseHelper(context);
         List<Hint> hints = db.getAllHints();
 
         this.hints_list = new LinkedList<>();
         this.hints_map = new HashMap<>();
+        int i = 0;
         for (Hint item : hints) {
-            if (item.status == 1) {
-                this.hints_list.add(item);
-                this.hints_map.put(item.id, item);
-
-            }
+            if (count == i++) break;
+            this.hints_list.add(item);
+            this.hints_map.put(item.id, item);
         }
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void incrementCount() {
+        count++;
     }
 
     /**
@@ -56,19 +65,21 @@ public class DummyContent {
         public final String title;
         public final String details;
         public final String password;
-        public final int status;
 
-        public Hint(String id, String title, String details, String password, int status) {
+        public Hint(String id, String title, String details, String password) {
             this.id = id;
             this.title = title;
             this.details = details;
             this.password = password;
-            this.status = status;
         }
 
         @Override
         public String toString() {
             return title;
+        }
+
+        public static Hint getById(String id) {
+            return db.getHintById(id);
         }
     }
 }

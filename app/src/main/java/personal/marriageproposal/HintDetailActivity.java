@@ -1,20 +1,24 @@
 package personal.marriageproposal;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import personal.marriageproposal.dummy.DummyContent;
 
 /**
  * An activity representing a single Hint detail screen. This
@@ -26,6 +30,7 @@ public class HintDetailActivity extends AppCompatActivity {
 
     private static final int TEXT_ID = 0;
     private static final String TAG = "HintDetailActivity";
+    private String hint_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +38,6 @@ public class HintDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hint_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        assert fab != null;
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog(0);
-//              Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -71,7 +65,26 @@ public class HintDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.hint_detail_container, fragment)
                     .commit();
+
+            hint_id = arguments.getString(HintDetailFragment.ARG_ITEM_ID);
         }
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DummyContent.Hint hint = DummyContent.Hint.getById(hint_id);
+                if (Integer.parseInt(hint_id) < DummyContent.getCount()) {
+                    Toast.makeText(getApplicationContext(), "Você já encontrou esta pista. Vá para próxima.",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Bundle args = new Bundle();
+                args.putString("password", hint.password);
+                showDialog(0, args);
+            }
+        });
     }
 
     @Override
@@ -92,23 +105,33 @@ public class HintDetailActivity extends AppCompatActivity {
     }
 
     @Override
-    protected Dialog onCreateDialog(int id) {
+    protected Dialog onCreateDialog(int id, final Bundle args) {
         if (id != 0) return null;
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Senha");
-        builder.setMessage("Digite a palavra secreta:");
-
         // Use an EditText view to get user input.
         final EditText input = new EditText(this);
         input.setId(TEXT_ID);
-        builder.setView(input);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Resposta")
+                .setMessage("Digite a palavra secreta:")
+                .setView(input);
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int whichButton) {
                 String value = input.getText().toString();
-                Log.d(TAG, "Senha: " + value);
+                String password = args.getString("password");
+                if (value.equalsIgnoreCase(password)) {
+                    DummyContent.incrementCount();
+
+                    Intent intent = new Intent(getApplicationContext(), HintListActivity.class);
+                    finish();
+                    startActivity(intent);
+                    Toast.makeText(getApplicationContext(), "Parabéns, você acertou! Vá para próxima pista.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Resposta incorreta! Tente novamente.", Toast.LENGTH_LONG).show();
+                }
+                Log.d(TAG, "Resposta: " + password);
             }
         });
 
