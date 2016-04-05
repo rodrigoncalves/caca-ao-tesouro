@@ -125,7 +125,7 @@ public class HintDetailActivity extends AppCompatActivity {
                     DummyContent.incrementCount();
 
                     Intent intent = new Intent(getApplicationContext(), HintListActivity.class);
-                    finish();
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Parabéns, você acertou! Vá para próxima pista.", Toast.LENGTH_LONG).show();
                 } else {

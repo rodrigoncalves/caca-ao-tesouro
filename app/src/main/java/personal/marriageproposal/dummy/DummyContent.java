@@ -1,12 +1,14 @@
 package personal.marriageproposal.dummy;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import personal.marriageproposal.App;
 import personal.marriageproposal.db.DataBaseHelper;
 
 /**
@@ -18,13 +20,14 @@ import personal.marriageproposal.db.DataBaseHelper;
 public class DummyContent {
     private List<Hint> hints_list;
     private HashMap<String, Hint> hints_map;
-    private static int count = 1;
+    private static int count;
     private static DataBaseHelper db;
 
     public DummyContent(Context context) {
         db = new DataBaseHelper(context);
-        List<Hint> hints = db.getAllHints();
+        count = App.getPreferences().getInt("count", 1);
 
+        List<Hint> hints = db.getAllHints();
         this.hints_list = new LinkedList<>();
         this.hints_map = new HashMap<>();
         int i = 0;
@@ -41,6 +44,9 @@ public class DummyContent {
 
     public static void incrementCount() {
         count++;
+        SharedPreferences.Editor editor = App.getPreferences().edit();
+        editor.putInt("count", count);
+        editor.apply();
     }
 
     /**
