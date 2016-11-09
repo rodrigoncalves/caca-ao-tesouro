@@ -1,0 +1,6 @@
+Connect to device
+
+$ adb devices
+$ adb -s <device> shell
+$ su
+$ cd /data/

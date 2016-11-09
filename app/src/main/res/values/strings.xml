@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Caça ao Tesouro</string>
     <string name="title_hint_detail">Descrição da Pista</string>
-    <string name="welcome">Olá, Isabela! Bem vinda ao caça ao tesouro do dia dos namorados! A partir de agora você encontrará diversos desafios que a levará a uma grande surpresa. Abra o seu coração e seja corajosa.\n\nCom amor,\nRodrigo.</string>
+    <string name="welcome">Olá, Isabela! Bem vinda ao caça ao tesouro do seu aniversário! A partir de agora você encontrará diversos desafios que a levará a uma grande surpresa. Abra o seu coração e seja corajosa.\n\nCom amor,\nRodrigo.</string>
     <string name="let_start">Está preparada? Para começar aperte o botão Iniciar</string>
 </resources>
