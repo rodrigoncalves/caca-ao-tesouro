@@ -11,7 +11,7 @@ INSERT INTO "hints" VALUES(5, 'Próximo nível', 'Parabéns, você está indo mu
 INSERT INTO "hints" VALUES(6, 'Aventuras no parque', 'Exatamente! Fomos ao parque duas vezes juntos! Na primeira vez fomos com os casais de namorados dos adolas participar de um piquenique, e na segunda fomos com sua família fazer uma caminhada. Então vamos começar dando um passeio pelo parque? Partiu!', '14');
 INSERT INTO "hints" VALUES(7, 'Quá quá', 'Sim, existem várias pistas escondidas no parque e seu objetivo é encontrar todas elas. Use seu GPS para se guiar e procure por mapas em pontos específicos do parque para te ajudar. Investigue, pergunte e procure. Você pode passar por alguns desafios no caminho, por tanto seja corajosa! Pista: em um banco preciso me sentar para observar os patinhos a nadar.', 'caldas novas');
 INSERT INTO "hints" VALUES(8, 'Esporte é vida', 'Que tal assistir a uma partida de vôlei de praia?', '19');
-INSERT INTO "hints" VALUES(9, 'Hora de relaxar', 'Água de coco com dica', 'asdf');
+INSERT INTO "hints" VALUES(9, 'Hora de relaxar', 'Parabéns, se você chegou até aqui é porque você está indo muito bem! Por isso, você acaba de ganhar um prêmio! Isso mesmo! Tudo que você precisa fazer é pegar o dinheiro que está dentro deste envelope, chegar na barraca de coco (Tim) e dizer "Uma água de coco com dica, por favor".', 'cabelo');
 INSERT INTO "hints" VALUES(10, 'Bambuzal', 'Foto.', 'asdf');
 INSERT INTO "hints" VALUES(11, 'Metrô', 'Metrô.', 'asdf');
 INSERT INTO "hints" VALUES(12, 'Igreja', 'Igreja.', 'asdf');
