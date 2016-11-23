@@ -13,7 +13,8 @@ INSERT INTO "hints" VALUES(7, 'Quá quá', 'Sim, existem várias pistas escondid
 INSERT INTO "hints" VALUES(8, 'Esporte é vida', 'Que tal assistir a uma partida de vôlei de praia?', '19');
 INSERT INTO "hints" VALUES(9, 'Hora de relaxar', 'Parabéns, se você chegou até aqui é porque você está indo muito bem! Por isso, você acaba de ganhar um prêmio! Isso mesmo! Tudo que você precisa fazer é pegar o dinheiro que está dentro deste envelope, chegar na barraca de coco (Tim) e dizer "Uma água de coco com dica, por favor".', 'cabelo');
 INSERT INTO "hints" VALUES(10, 'Pista surpresa', 'Está aproveitando sua água de coco? Eu sei que você gosta, já eu não muito rsrs... Mas vamos voltar ao que interessa. A próxima pista está em um local secreto e não posso te dizer agora. Mas preciso que você vá caminhando e espere na entrada do parque e aguarde novas instruções.', ' IS2JS2R');
-INSERT INTO "hints" VALUES(11, 'Metrô', 'Metrô.', 'asdf');
-INSERT INTO "hints" VALUES(12, 'Igreja', 'Igreja.', 'asdf');
-INSERT INTO "hints" VALUES(13, 'Carona', 'Pegue uma carona.', 'asdf');
-INSERT INTO "hints" VALUES(14, 'Pontão', 'Coloque a venda', 'asdf');
+INSERT INTO "hints" VALUES(11, 'A pista perdida', 'Parabéns! Você coletou todas as pistas do parque, você mandou muito bem! Estou orgulhoso :''D Mas calma que ainda não acabou. Você não viu, mas ficou um envelope na sua casa. Sim, você deve subir até o seu apartamento e procurar por essa pista perdida. Ela contém informações importantes.', 'asdf');
+INSERT INTO "hints" VALUES(12, 'Metrô', 'Metrô.', 'asdf');
+INSERT INTO "hints" VALUES(13, 'Igreja', 'Igreja.', 'asdf');
+INSERT INTO "hints" VALUES(14, 'Carona', 'Pegue uma carona.', 'asdf');
+INSERT INTO "hints" VALUES(15, 'Pontão', 'Coloque a venda', 'asdf');
