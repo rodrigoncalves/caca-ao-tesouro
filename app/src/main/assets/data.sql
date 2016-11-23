@@ -10,8 +10,8 @@ INSERT INTO "hints" VALUES(4, 'Gordice', 'Assistir um filme assim em casa, um do
 INSERT INTO "hints" VALUES(5, 'Próximo nível', 'Parabéns, você está indo muito bem! Você já está pegando o jeito. Mas sei que você deve estar achando tudo isso muito fácil. Então está na hora de começar nossa aventura pela cidade! Não sei por quanto tempo isso durará, então se prepare e leve o que você achar necessário para sua sobrevivência. Não tenha receio do que virá, sê valente e corajosa! A próxima dica está à sua espera em um lugar onde as crianças gostam de brincar.', '2');
 INSERT INTO "hints" VALUES(6, 'Aventuras no parque', 'Exatamente! Fomos ao parque duas vezes juntos! Na primeira vez fomos com os casais de namorados dos adolas participar de um piquenique, e na segunda fomos com sua família fazer uma caminhada. Então vamos começar dando um passeio pelo parque? Partiu!', '14');
 INSERT INTO "hints" VALUES(7, 'Quá quá', 'Sim, existem várias pistas escondidas no parque e seu objetivo é encontrar todas elas. Use seu GPS para se guiar e procure por mapas em pontos específicos do parque para te ajudar. Investigue, pergunte e procure. Você pode passar por alguns desafios no caminho, por tanto seja corajosa! Pista: em um banco preciso me sentar para observar os patinhos a nadar.', 'caldas novas');
-INSERT INTO "hints" VALUES(8, 'Hora de relaxar', 'Que tal assistir a uma partida de vôlei de praia?', 'asdf');
-INSERT INTO "hints" VALUES(9, 'Coco', 'Água de coco com dica', 'asdf');
+INSERT INTO "hints" VALUES(8, 'Esporte é vida', 'Que tal assistir a uma partida de vôlei de praia?', '19');
+INSERT INTO "hints" VALUES(9, 'Hora de relaxar', 'Água de coco com dica', 'asdf');
 INSERT INTO "hints" VALUES(10, 'Bambuzal', 'Foto.', 'asdf');
 INSERT INTO "hints" VALUES(11, 'Metrô', 'Metrô.', 'asdf');
 INSERT INTO "hints" VALUES(12, 'Igreja', 'Igreja.', 'asdf');
